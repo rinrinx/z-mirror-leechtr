@@ -214,17 +214,17 @@ class MirrorListener:
         buttons = ButtonMaker()
         if not self.isPrivate and INCOMPLETE_TASK_NOTIFIER and DB_URI is not None:
             DbManger().rm_complete_task(self.message.link)
-        msg = f"<b>File Name: </b><code>{escape(name)}</code>\n<b>File Size: </b>{size}"
+        msg = f"<b>📁 Name: </b><code>{escape(name)}</code>\n<b>📄 Size: </b>{size}"
         if self.isLeech:
             if BOT_PM:
                 bot_d = bot.get_me()
                 b_uname = bot_d.username
                 botstart = f"http://t.me/{b_uname}"
-                buttons.buildbutton("View file in PM", f"{botstart}")
+                buttons.buildbutton("View PM", f"{botstart}")
             msg += f'\n<b>Total Files: </b>{folders}'
             if typ != 0:
                 msg += f'\n<b>Corrupted Files: </b>{typ}'
-            msg += f'\n\n<b>Hey </b>{self.tag} <b>Your Job is Done</b>'
+            msg += f'\n\n<b></b>{self.tag} <b>Görev Tamamlandı</b>'
             msg += f'\n<b>It Tooks:</b> {get_readable_time(time() - self.message.date.timestamp())}'
             msg += f'\n\n<b>Thanks For using {TITLE_NAME}</b>'
             if not files:
@@ -242,11 +242,11 @@ class MirrorListener:
         else:
             msg += f'\n<b>Type: </b>{typ}'
             if ospath.isdir(f'{DOWNLOAD_DIR}{self.uid}/{name}'):
-                msg += f'\n<b>SubFolders: </b>{folders}'
+                msg += f'\n<b>📁 SubFolders: </b>{folders}'
                 msg += f'\n<b>Files: </b>{files}'
-            msg += f'\n\n<b>Hey </b>{self.tag} <b>Your Job is Done</b>'
-            msg += f'\n<b>It Tooks:</b> {get_readable_time(time() - self.message.date.timestamp())}'
-            msg += f'\n\n<b>Thanks For using {TITLE_NAME}</b>'
+            msg += f'\n\n<b></b>{self.tag} <b>Görev Tamamlandı</b>'
+            msg += f'\n<b>Tooks:</b> {get_readable_time(time() - self.message.date.timestamp())}'
+            msg += f'\n\n<b>Thanks {TITLE_NAME}</b>'
             buttons = ButtonMaker()
             link = short_url(link)
             buttons.buildbutton("☁️ Drive Link", link)
@@ -341,7 +341,7 @@ def _mirror(bot, message, isZip=False, extract=False, isQbit=False, isLeech=Fals
             if user.status not in ['member', 'creator', 'administrator']:
                 buttons.buildbutton( f"{TITLE_NAME}", f"https://t.me/{CHANNEL_USERNAME}")
                 reply_markup = InlineKeyboardMarkup(buttons.build_menu(1))
-                return sendMarkup(f"<b>Dear {uname}️,\n\nI found that you haven't joined our Updates Channel yet.\n\nJoin and Use Bots Without Restrictions.</b>", bot, message, reply_markup)
+                return sendMarkup(f"<b>{uname}️,\n\nI found that you haven't joined our Updates Channel yet.\n\nJoin and Use Bots Without Restrictions.</b>", bot, message, reply_markup)
         except Exception as e:
             LOGGER.info(str(e))
 
@@ -475,9 +475,9 @@ def _mirror(bot, message, isZip=False, extract=False, isQbit=False, isLeech=Fals
 
     if is_gdrive_link(link):
         if not isZip and not extract and not isLeech:
-            gmsg = f"Use /{BotCommands.CloneCommand} to clone Google Drive file/folder\n\n"
-            gmsg += f"Use /{BotCommands.ZipMirrorCommand} to make zip of Google Drive folder\n\n"
-            gmsg += f"Use /{BotCommands.UnzipMirrorCommand} to extracts Google Drive archive file"
+            gmsg = f"/{BotCommands.CloneCommand} to clone Google Drive file/folder\n\n"
+            gmsg += f"/{BotCommands.ZipMirrorCommand} to make zip of Google Drive folder\n\n"
+            gmsg += f"/{BotCommands.UnzipMirrorCommand} to extracts Google Drive archive file"
             sendMessage(gmsg, bot, message)
         else:
             Thread(target=add_gd_download, args=(link, listener, name, is_gdtot)).start()
