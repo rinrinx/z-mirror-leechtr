@@ -159,8 +159,8 @@ def get_readable_message():
                 elif download.status() == MirrorStatus.STATUS_SPLITTING:
                     msg += f"\n<b>✂️ Splitted:</b> {get_readable_file_size(download.processed_bytes())} of {download.size()}"
                 msg += f"\n<b>⚡️ Speed:</b> {download.speed()}\n<b>⏰ Wait Time:</b> {download.eta()}"
-                msg += f"\n<b>Elapsed : </b>{get_readable_time(time() - download.message.date.timestamp())}"
-                msg += f'\n<b>Req By :</b> <a href="https://t.me/c/{str(download.message.chat.id)[4:]}/{download.message.message_id}">{download.message.from_user.first_name}</a>'
+                msg += f"\n<b>⏱️ Elapsed : </b>{get_readable_time(time() - download.message.date.timestamp())}"
+                msg += f'\n<b>👤 Req By :</b> <a href="https://t.me/c/{str(download.message.chat.id)[4:]}/{download.message.message_id}">{download.message.from_user.first_name}</a>'
                 msg += f"\n<b>⚙️ Engine :</b> {download.eng()}"
                 try:
                     msg += f"\n<b>🌱 Seeder:</b> {download.aria_download().num_seeders}" \
@@ -213,11 +213,10 @@ def get_readable_message():
         sbutton = InlineKeyboardMarkup(buttons.build_menu(1))
 
         if STATUS_LIMIT is not None and tasks > STATUS_LIMIT:
-            msg += f"\n<b>Total Tasks:</b> {tasks}\n"
+            msg += f"<b>📄 Page:</b> {PAGE_NO}/{pages} | <b>⚙️ Tasks:</b> {tasks}\n"
             buttons = ButtonMaker()
-            buttons.sbutton("Prev", "status pre")
-            buttons.sbutton(f"{PAGE_NO}/{pages}", str(THREE))
-            buttons.sbutton("Next", "status nex")
+            buttons.sbutton("⏮️ Previous", "status pre")
+            buttons.sbutton("⏭️ Next", "status nex")
             button = InlineKeyboardMarkup(buttons.build_menu(3))
             return msg + bmsg, button
         return msg + bmsg, sbutton
