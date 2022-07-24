@@ -225,12 +225,12 @@ class MirrorListener:
             if typ != 0:
                 msg += f'\n<b>Corrupted Files: </b>{typ}'
             msg += f'\n\n<b></b>{self.tag} <b>Görev Tamamlandı</b>'
-            msg += f'\n<b>It Tooks:</b> {get_readable_time(time() - self.message.date.timestamp())}'
-            msg += f'\n\n<b>Thanks For using {TITLE_NAME}</b>'
+            msg += f'\n<b>Zaman:</b> {get_readable_time(time() - self.message.date.timestamp())}'
+            msg += f'\n\n<b>{TITLE_NAME}</b>'
             if not files:
                 sendMessage(msg, self.bot, self.message)
             else:
-                fmsg = '\n<b>Your Files Are:</b>\n'
+                fmsg = '\n<b>Your Files:</b>\n'
                 for index, (link, name) in enumerate(files.items(), start=1):
                     fmsg += f"{index}. <a href='{link}'>{name}</a>\n"
                     if len(fmsg.encode() + msg.encode()) > 4000:
@@ -245,8 +245,8 @@ class MirrorListener:
                 msg += f'\n<b>📁 SubFolders: </b>{folders}'
                 msg += f'\n<b>Files: </b>{files}'
             msg += f'\n\n<b></b>{self.tag} <b>Görev Tamamlandı</b>'
-            msg += f'\n<b>Tooks:</b> {get_readable_time(time() - self.message.date.timestamp())}'
-            msg += f'\n\n<b>Thanks {TITLE_NAME}</b>'
+            msg += f'\n<b>Zaman:</b> {get_readable_time(time() - self.message.date.timestamp())}'
+            msg += f'\n\n<b>{TITLE_NAME}</b>'
             buttons = ButtonMaker()
             link = short_url(link)
             buttons.buildbutton("☁️ Drive Link", link)
@@ -341,7 +341,7 @@ def _mirror(bot, message, isZip=False, extract=False, isQbit=False, isLeech=Fals
             if user.status not in ['member', 'creator', 'administrator']:
                 buttons.buildbutton( f"{TITLE_NAME}", f"https://t.me/{CHANNEL_USERNAME}")
                 reply_markup = InlineKeyboardMarkup(buttons.build_menu(1))
-                return sendMarkup(f"<b>{uname}️,\n\nI found that you haven't joined our Updates Channel yet.\n\nJoin and Use Bots Without Restrictions.</b>", bot, message, reply_markup)
+                return sendMarkup(f"<b>{uname}️,\n\nI found that you haven't joined our Updates Channel yet.\n.</b>", bot, message, reply_markup)
         except Exception as e:
             LOGGER.info(str(e))
 
