@@ -444,7 +444,7 @@ def _mirror(bot, message, isZip=False, extract=False, isQbit=False, isLeech=Fals
                 link = file.get_file().file_path
 
     if not is_url(link) and not is_magnet(link) and not ospath.exists(link):
-        help_msg = "<b>✋ No Download Source:</b>"
+        help_msg = "<b>✋ No Download Source</b>"
         return sendMessage(help_msg, bot, message)
 
     LOGGER.info(link)
